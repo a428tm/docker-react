@@ -1,0 +1,16 @@
+# Specify a base image
+FROM node:alpine
+
+# It could be /user/app or /home/a428tm or whatever
+WORKDIR /app 
+
+# Install dependencies
+# DOING this will throw an error as package.json isn't included 
+# in the container created by command above
+# So, we run COPY command, which copies all files from previous container to the next 
+COPY package.json .
+RUN npm install
+COPY . .
+
+# Default command
+CMD ["npm", "run", "start"]

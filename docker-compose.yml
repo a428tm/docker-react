@@ -1,0 +1,26 @@
+version: "3"
+services:
+  web: # this can be anything
+    # build: . # previously this is what we did since it is
+    # # telling it to look for dockerfile within the directory
+    # # however, we don't have dockerfile. We have dockerfile.dev
+    build:
+      # specifying where we want all the files and folders to be pulled from
+      # in this case, . since it is the current directory
+      context: .
+      # location of the dockerfile that we will use
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - /app/node_modules
+      - .:/app # . represents current directory : /app directroy in container
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - .:/app
+    # override the starting command
+    command: ["npm", "run", "test"]
