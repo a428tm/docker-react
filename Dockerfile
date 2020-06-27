@@ -1,5 +1,6 @@
 # this is going to be called builder by doing this
-FROM node:alpine as builder 
+# FROM node:alpine as builder 
+FROM node:alpine
 
 WORKDIR '/app'
 COPY package.json .
@@ -20,5 +21,5 @@ EXPOSE 80
 # from folder /app/build to /usr/share/nginx/html
 # this information can be found from hub.docker.com/_/nginx
 # this is to host static content
-COPY --from=builder /app/build /usr/share/nginx/html
-
+# COPY --from=builder /app/build /usr/share/nginx/html
+COPY --from=0 /app/build /usr/share/nginx/html
