@@ -1,0 +1,10 @@
+sudo: required
+services: 
+  - docker # travis CI, we need docker!
+
+before_install:
+  # - docker build -f Dockerfile.dev . # when we run this we get the ID
+  # since we can't copy paste the ID, we tag it and use that tag
+  - docker build -t a428tm/docker-react -f Dockerfile.dev .
+
+
