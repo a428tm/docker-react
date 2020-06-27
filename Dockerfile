@@ -12,8 +12,10 @@ RUN npm run build
 # /app/build - all files will go in here in the container
 
 
-# Once above commands run (it goes by FROM block)
+# Once above commands run (it goes by FROM block).
+# we specify the base image
 FROM nginx
+EXPOSE 80
 # we are saying.. we want to copy from builder... 
 # from folder /app/build to /usr/share/nginx/html
 # this information can be found from hub.docker.com/_/nginx
