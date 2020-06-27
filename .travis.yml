@@ -7,4 +7,7 @@ before_install:
   # since we can't copy paste the ID, we tag it and use that tag
   - docker build -t a428tm/docker-react -f Dockerfile.dev .
 
+script:
+  - docker run -e CI=true a428tm/docker-react npm run test
 
+# language: generic
