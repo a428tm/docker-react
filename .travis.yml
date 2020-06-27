@@ -8,6 +8,20 @@ before_install:
   - docker build -t a428tm/docker-react -f Dockerfile.dev .
 
 script:
-  - docker run -e CI=true a428tm/docker-react npm run test
+  - docker run -e CI=true a428tm/docker-react npm run test -- --coverage
 
-# language: generic
+deploy:
+  # we will tell travis CI how to deploy to AWS
+  provider: elasticbeanstalk
+  region: "us-west-2"
+  app: "docker-react"
+  # DockerReact-env - you can get this from elastic beanstalk environments (this is what we created)
+  env: "DockerReact-env"
+  bucket_name: "elasticbeanstalk-us-west-2-992750928853"
+  # bucket_path is going to equal the app name (see "app" above)
+  bucket_path: "docker-react"
+  # language: generic
+  on: # this is saying... only code is pushed to master, push to AWS
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
